@@ -9,12 +9,13 @@ export default class MenuComponent extends Component {
     
         this.state = {
            selectedDish: null
+           
         }
     }
     
     onDishSelect(dish){
         this.setState({selectedDish:dish})
-        console.log(dish)
+       
     }
 
     renderDish(dish){
