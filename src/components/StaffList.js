@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Moment from 'react-moment';
 
 export default class StaffList extends Component {
     constructor(props) {
@@ -15,8 +16,8 @@ export default class StaffList extends Component {
            return (
                <div className='border col-sm-12 col-md-10 col-lg-6'>
                    <h1>Họ và tên:{select.name}</h1>
-                   <p>Ngày sinh: {select.doB}</p>
-                   <p>Ngày vào công ty: {select.startDate}</p>
+                   <p>Ngày sinh: <Moment format="DD/MM/YYYY">{select.doB}</Moment> </p> 
+                   <p>Ngày vào công ty: <Moment format="DD/MM/YYYY">{select.startDate}</Moment></p>
                    <p>Phòng ban: {select.department.name}</p>
                    <p>Số ngày nghỉ còn lại: {select.annualLeave}</p>
                    <p>Số ngày đã làm thêm: {select.overTime}</p>
