@@ -7,7 +7,7 @@ export default class MainCoponent extends Component {
     render() {
         return (
             <div>
-                
+                 
             </div>
         )
     }
