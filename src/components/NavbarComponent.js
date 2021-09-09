@@ -59,7 +59,6 @@ export default function SimpleTabs() {
   return (
     <div className={classes.root}>
       <AppBar position="static">
-        <Link to="/staffs">Nhân Viên</Link>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -76,15 +75,7 @@ export default function SimpleTabs() {
           </Link>
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <h1 className="border-bottom">Nhân Viên</h1>
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <h1 className="border-bottom">Phòng Ban</h1>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        <h1 className="border-bottom">Bảng Lương</h1>
-      </TabPanel>
+   
     </div>
   );
 }
