@@ -5,6 +5,7 @@ import StaffsComponent from "./StaffsComponent";
 import NavbarComponent from "./NavbarComponent";
 import DepartmentCoponent from "./DepartmentCoponent";
 import MoneyComponent from "./MoneyComponent";
+import StaffsDetail from "./StaffsDetail";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 export default class MainComponent extends Component {
@@ -32,7 +33,7 @@ export default class MainComponent extends Component {
             <MoneyComponent staffs={this.state.staff} />
           </Route>
           <Route exact path="/staffs/:dishId">
-            <StaffsComponent staffs={this.state.staff} />
+            <StaffsDetail staffs={this.state.staff} />
           </Route>
 
           <Redirect to="/staffs" />
