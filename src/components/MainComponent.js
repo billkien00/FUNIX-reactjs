@@ -7,6 +7,7 @@ import DepartmentCoponent from "./DepartmentCoponent";
 import MoneyComponent from "./MoneyComponent";
 import StaffsDetail from "./StaffsDetail";
 import { Redirect, Route, Switch } from "react-router-dom";
+import FooterComponent from "./FooterComponent";
 
 export default class MainComponent extends Component {
   constructor(props) {
@@ -19,6 +20,12 @@ export default class MainComponent extends Component {
   }
 
   render() {
+    const StaffDetail = ({ match }) => {
+      const staff = this.state.staff.filter(
+        (x) => x.id === parseInt(match.params.staffId, 10)
+      )[0];
+      return <StaffsDetail staff={staff} />;
+    };
     return (
       <div>
         <NavbarComponent />
@@ -32,12 +39,13 @@ export default class MainComponent extends Component {
           <Route path="/money">
             <MoneyComponent staffs={this.state.staff} />
           </Route>
-          <Route exact path="/staffs/:dishId">
-            <StaffsDetail staffs={this.state.staff} />
+          <Route exact path="/staffs/:staffId">
+            {StaffDetail}
           </Route>
 
           <Redirect to="/staffs" />
         </Switch>
+        <FooterComponent />
       </div>
     );
   }
