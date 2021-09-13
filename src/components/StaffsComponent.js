@@ -18,7 +18,20 @@ export default function StaffsComponent(props) {
   });
   return (
     <div className="container-fluid">
-      <h1 className="border-bottom">Nhân Viên</h1>
+      <div className="border-bottom row">
+        <h1 className="col-lg-9">Nhân Viên</h1>
+        <form class="form-inline col-lg-3">
+          <input
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
       <div className="row">{staff}</div>
     </div>
   );
