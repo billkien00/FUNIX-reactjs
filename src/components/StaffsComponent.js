@@ -1,66 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ModalComponent from "./ModalComponent";
 
 export default function StaffsComponent(props) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [openModal, setopenModal] = useState(false);
+  const [staffs, setStaffs] = useState(props.staffs);
+  const searchRef = useRef(null);
 
-  const staff = props.staffs
-    .filter((val) => {
-      if (searchTerm === "") {
-        return val;
-      } else if (val.name.toLowerCase().includes(searchTerm.toLowerCase())) {
-        return val;
-      }
-    })
-    .map((staff) => {
-      return (
-        <div className="col-sm-6 col-md-4 col-lg-2">
-          <Link to={`/staffs/${staff.id}`}>
-            <div className="card rounded m-1">
-              <img
-                className="card-img-top"
-                src={staff.image}
-                alt={staff.name}
-              />
-              <div class="card-body">
-                <p className="card-text text-center"> {staff.name}</p>
-              </div>
+  const handleSearch = (e) => {
+    e.preventDefault();
+    const searchTxt = searchRef.current.value;
+    setStaffs(
+      searchTxt
+        ? props.staffs.filter((s) =>
+            s.name.toLowerCase().includes(searchTxt.toLowerCase())
+          )
+        : props.staffs
+    );
+  };
+  const staff = staffs.map((staff) => {
+    return (
+      <div className="col-sm-6 col-md-4 col-lg-2">
+        <Link to={`/staffs/${staff.id}`}>
+          <div className="card rounded m-1">
+            <img className="card-img-top" src={staff.image} alt={staff.name} />
+            <div class="card-body">
+              <p className="card-text text-center"> {staff.name}</p>
             </div>
-          </Link>
-        </div>
-      );
-    });
+          </div>
+        </Link>
+      </div>
+    );
+  });
   return (
     <div className="container-fluid">
       <div className="border-bottom row">
         <h1 className="col-lg-3">Nhân Viên</h1>
         <div className="form-inline col-lg-6">
-          <button
-            type="button"
-            class="btn btn-primary"
-            onClick={() => {
-              setopenModal(true);//đây a
-            }}
-          >
-            <i class="bi bi-plus-square-fill"></i>
-          </button>
+          <ModalComponent buttonLabel={"+"} />
         </div>
-        <div className="form-inline col-lg-3 ">
+
+        <form onSubmit={handleSearch} class="form-inline col-lg-3">
           <input
-            class="form-control "
-            type="text"
+            class="form-control mr-sm-2"
+            type="search"
             placeholder="Search"
-            onChange={(event) => {
-              setSearchTerm(event.target.value);
-            }}
+            aria-label="Search"
+            ref={searchRef}
           />
-        </div>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
       </div>
 
       <div className="row">{staff}</div>
-      {openModal && <ModalComponent closeModal={setopenModal}/>}
     </div>
   );
 }
