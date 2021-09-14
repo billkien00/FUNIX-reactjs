@@ -1,27 +1,31 @@
 import React, { Component } from "react";
-import { STAFFS } from "../shared/staffs";
-import { DEPARTMENTS } from "../shared/staffs";
+
 import StaffsComponent from "./StaffsComponent";
 import NavbarComponent from "./NavbarComponent";
 import DepartmentCoponent from "./DepartmentCoponent";
 import MoneyComponent from "./MoneyComponent";
 import StaffsDetail from "./StaffsDetail";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import FooterComponent from "./FooterComponent";
+import { connect } from "react-redux";
 
-export default class MainComponent extends Component {
+const mapStateToProps = (state) => {
+  return {
+    staff: state.staff,
+    department: state.department,
+  };
+};
+
+class MainComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      staff: STAFFS,
-      department: DEPARTMENTS,
-    };
+    this.state = {};
   }
 
   render() {
     const StaffDetail = ({ match }) => {
-      const staff = this.state.staff.filter(
+      const staff = this.props.staff.filter(
         (x) => x.id === parseInt(match.params.staffId, 10)
       )[0];
       return <StaffsDetail staff={staff} />;
@@ -31,13 +35,13 @@ export default class MainComponent extends Component {
         <NavbarComponent />
         <Switch>
           <Route exact path="/staffs">
-            <StaffsComponent staffs={this.state.staff} />
+            <StaffsComponent staffs={this.props.staff} />
           </Route>
           <Route path="/department">
-            <DepartmentCoponent departments={this.state.department} />
+            <DepartmentCoponent departments={this.props.department} />
           </Route>
           <Route path="/money">
-            <MoneyComponent staffs={this.state.staff} />
+            <MoneyComponent staffs={this.props.staff} />
           </Route>
           <Route exact path="/staffs/:staffId">
             {StaffDetail}
@@ -50,3 +54,4 @@ export default class MainComponent extends Component {
     );
   }
 }
+export default withRouter(connect(mapStateToProps)(MainComponent));

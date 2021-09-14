@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import ModalComponent from "./ModalComponent";
 
 export default function StaffsComponent(props) {
   const [searchTerm, setSearchTerm] = useState("");
+  const [openModal, setopenModal] = useState(false);
 
   const staff = props.staffs
     .filter((val) => {
@@ -33,8 +35,19 @@ export default function StaffsComponent(props) {
   return (
     <div className="container-fluid">
       <div className="border-bottom row">
-        <h1 className="col-lg-9">Nhân Viên</h1>
-        <form className="form-inline col-lg-3 ">
+        <h1 className="col-lg-3">Nhân Viên</h1>
+        <div className="form-inline col-lg-6">
+          <button
+            type="button"
+            class="btn btn-primary"
+            onClick={() => {
+              setopenModal(true);//đây a
+            }}
+          >
+            <i class="bi bi-plus-square-fill"></i>
+          </button>
+        </div>
+        <div className="form-inline col-lg-3 ">
           <input
             class="form-control "
             type="text"
@@ -43,11 +56,11 @@ export default function StaffsComponent(props) {
               setSearchTerm(event.target.value);
             }}
           />
-          
-        </form>
+        </div>
       </div>
 
       <div className="row">{staff}</div>
+      {openModal && <ModalComponent closeModal={setopenModal}/>}
     </div>
   );
 }
