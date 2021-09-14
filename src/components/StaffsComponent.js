@@ -1,26 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function StaffsComponent(props) {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-      isNavOpen: false,
-      isModalOpen: false,
-    }
-  }
-
-  toggleModal = () => {
-    this.setState({
-      isModalOpen: !this.state.isModalOpen,
-    });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
   };
-  handleSearch=(event) =>{
-      this.toggleModal()
-      alert('Username: ' + this.username.value + 'Password: ' + this.password.value + 'Remember : ' +this.remember.checked)
-      event.preventDefault()
-  }
+
+  // useEffect(() => {
+  //   const results = people.filter((person) =>
+  //     person.toLowerCase().includes(searchTerm)
+  //   );
+  //   setSearchResults(results);
+  // }, [searchTerm]);
+
   const staff = props.staffs.map((staff) => {
     return (
       <div className="col-sm-6 col-md-4 col-lg-2">
@@ -39,18 +33,21 @@ export default function StaffsComponent(props) {
     <div className="container-fluid">
       <div className="border-bottom row">
         <h1 className="col-lg-9">Nhân Viên</h1>
-        <form onSubmit={this.handleSearch} className="form-inline col-lg-3 ">
+        <form className="form-inline col-lg-3 ">
           <input
+            name="keyword"
             class="form-control mr-sm-2"
             type="search"
             placeholder="Search"
-            aria-label="Search"
+            value={searchTerm}
+            onChange={handleChange}
           />
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
             Search
           </button>
         </form>
       </div>
+
       <div className="row">{staff}</div>
     </div>
   );
