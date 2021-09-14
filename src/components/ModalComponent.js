@@ -14,25 +14,31 @@ import {
   FormText,
   Row,
 } from "reactstrap";
+import { STAFFS } from "../shared/staffs";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
-const minLength = (len) => (val) => val && val.length >= len;
+const minLength = (len) => (val) => !val || val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 
-const handleSubmit = (values) => {
-  console.log("Current State is: " + JSON.stringify(values));
-  alert("Current State is: " + JSON.stringify(values));
-  // event.preventDefault();
-};
-
 const ModalComponent = (props) => {
-  const { buttonLabel, className } = props;
-
+  const { buttonLabel, className, onAddStaff } = props;
   const [modal, setModal] = useState(false);
+  const handleSubmit = (values) => {
+    onAddStaff({
+      name: values.name,
+      dob: values.birthday,
+      salaryScale: values.salaryScale,
+      startDate: values.startday,
+      department: values.department,
+      annualLeave: values.annualLeave,
+      overTime: values.overTime,
+      image: "/assets/images/alberto.png",
+    });
+    setModal(false);
+  };
 
   const toggle = () => setModal(!modal);
-
   return (
     <div>
       <Button color="danger" onClick={toggle}>
@@ -51,7 +57,8 @@ const ModalComponent = (props) => {
                 Tên
               </Label>
               <Col sm={7}>
-                <Control.text
+                <Input
+                  type="text"
                   model=".name"
                   className="form-control"
                   name="name"
@@ -80,21 +87,21 @@ const ModalComponent = (props) => {
                 Ngày Sinh
               </Label>
               <Col sm={7}>
-                <Control
+                <Input
                   type="date"
                   model=".birthday"
                   className="form-control"
                   name="birthday"
                   id="birthday"
                   placeholder=""
+                  validators={{
+                    required,
+                  }}
                 />
                 <Errors
                   className="text-danger"
                   model=".birthday"
                   show="touched"
-                  validators={{
-                    required,
-                  }}
                   messages={{
                     required: "Yêu cầu nhập",
                   }}
@@ -107,13 +114,24 @@ const ModalComponent = (props) => {
                 Ngày vào công ty
               </Label>
               <Col sm={7}>
-                <Control
+                <Input
                   type="date"
                   model=".startday"
                   className="form-control"
                   name="startday"
                   id="startday"
                   placeholder=""
+                  validators={{
+                    required,
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".startday"
+                  show="touched"
+                  messages={{
+                    required: "Yêu cầu nhập",
+                  }}
                 />
               </Col>
             </Row>
@@ -123,18 +141,20 @@ const ModalComponent = (props) => {
                 Phòng ban
               </Label>
               <Col sm={7}>
-                <Control.select
+                <Input
+                  type="select"
                   model=".department"
                   className="form-control"
                   name="department"
                   id="department"
+                  // defaultValue="IT"
                 >
                   <option>Sale</option>
                   <option>HR</option>
                   <option>Marketing</option>
                   <option>IT</option>
                   <option>Finance</option>
-                </Control.select>
+                </Input>
               </Col>
             </Row>
             <Row className="form-group">
@@ -142,12 +162,25 @@ const ModalComponent = (props) => {
                 Hệ số lương
               </Label>
               <Col sm={7}>
-                <Control.text
+                <Input
+                  type="text"
                   model=".salaryScale"
                   className="form-control"
                   name="salaryScale"
                   id="salaryScale"
-                  placeholder="1"
+                  placeholder="1.0->3.0"
+                  // defaultValue={1}
+                  validators={{
+                    isNumber,
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".salaryScale"
+                  show="touched"
+                  messages={{
+                    isNumber: "Yêu Cầu nhập số",
+                  }}
                 />
               </Col>
             </Row>
@@ -156,12 +189,25 @@ const ModalComponent = (props) => {
                 Số ngày nghỉ còn lại
               </Label>
               <Col sm={7}>
-                <Control.text
+                <Input
+                  type="text"
                   model=".annualLeave"
                   className="form-control"
                   name="annualLeave"
                   id="annualLeave"
-                  placeholder="0"
+                  placeholder={1.0}
+                  // defaultValue={0}
+                  validators={{
+                    isNumber,
+                  }}
+                />
+                <Errors
+                  className="text-danger"
+                  model=".annualLeave"
+                  show="touched"
+                  messages={{
+                    isNumber: "Yêu Cầu nhập số",
+                  }}
                 />
               </Col>
             </Row>
@@ -170,25 +216,37 @@ const ModalComponent = (props) => {
                 Số ngày đã làm thêm
               </Label>
               <Col sm={7}>
-                <Control.text
+                <Input
+                  type="text"
                   model=".overTime"
                   className="form-control"
                   name="overTime"
                   id="overTime"
                   placeholder="0"
+                  // defaultValue={0}
+                  validators={{
+                    isNumber,
+                  }}
                 />
+                <Errors
+                  className="text-danger"
+                  model=".overTime"
+                  show="touched"
+                  messages={{
+                    isNumber: "Yêu Cầu nhập số",
+                  }}
+                />
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Col md={{ size: 10, offset: 9 }}>
+                <Button type="submit" color="primary">
+                  thêm
+                </Button>
               </Col>
             </Row>
           </LocalForm>
         </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={toggle}>
-            Thêm
-          </Button>{" "}
-          <Button color="secondary" onClick={toggle}>
-            Cancel
-          </Button>
-        </ModalFooter>
       </Modal>
     </div>
   );

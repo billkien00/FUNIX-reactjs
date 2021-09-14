@@ -42,6 +42,7 @@ export const STAFFS =
             annualLeave: 1,
             overTime: 1, 
             image: '/assets/images/alberto.png',
+            
         },
         {
             id: 1,

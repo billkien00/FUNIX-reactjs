@@ -31,12 +31,23 @@ export default function StaffsComponent(props) {
       </div>
     );
   });
+
+  const handleAddStaff = (staff) => {
+    staff.id = staffs.length;
+    setStaffs(staffs.concat([staff]));
+    
+  };
+
   return (
     <div className="container-fluid">
       <div className="border-bottom row">
         <h1 className="col-lg-3">Nhân Viên</h1>
         <div className="form-inline col-lg-6">
-          <ModalComponent buttonLabel={"+"} />
+          <ModalComponent
+            buttonLabel={"+"}
+            onAddStaff={handleAddStaff}
+            
+          />
         </div>
 
         <form onSubmit={handleSearch} class="form-inline col-lg-3">
