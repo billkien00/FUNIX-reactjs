@@ -20,28 +20,54 @@ class MainComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      staffs: props.staff,
+    };
+    this.handleAddStaff = this.handleAddStaff.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
+
+  handleAddStaff = (staff) => {
+    staff.id = this.props.staff.length;
+    this.setState({
+      staffs: this.state.staffs.concat([staff]),
+    });
+  };
+
+  handleSearch = (search) => {
+    this.setState({
+      staffs: search
+        ? this.props.staff.filter((s) =>
+            s.name.toLowerCase().includes(search.toLowerCase())
+          )
+        : this.props.staff,
+    });
+  };
 
   render() {
     const StaffDetail = ({ match }) => {
-      const staff = this.props.staff.filter(
+      const staff = this.state.staffs.filter(
         (x) => x.id === parseInt(match.params.staffId, 10)
       )[0];
       return <StaffsDetail staff={staff} />;
     };
+
     return (
       <div>
         <NavbarComponent />
         <Switch>
           <Route exact path="/staffs">
-            <StaffsComponent staffs={this.props.staff} />
+            <StaffsComponent
+              staffs={this.state.staffs}
+              onAddStaff={this.handleAddStaff}
+              onSearchStaff={this.handleSearch}
+            />
           </Route>
           <Route path="/department">
             <DepartmentCoponent departments={this.props.department} />
           </Route>
           <Route path="/money">
-            <MoneyComponent staffs={this.props.staff} />
+            <MoneyComponent staffs={this.state.staffs} />
           </Route>
           <Route exact path="/staffs/:staffId">
             {StaffDetail}

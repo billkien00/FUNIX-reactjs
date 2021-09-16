@@ -3,6 +3,7 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
 export default function StaffsDetail({ staff }) {
+  console.log(staff);
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -31,7 +32,12 @@ export default function StaffsDetail({ staff }) {
               Ngày vào công ty:{" "}
               <Moment format="DD/MM/YYYY">{staff.startDate}</Moment>
             </p>
-            <p>Phòng ban: {staff.department.name}</p>
+            <p>
+              Phòng ban:{" "}
+              {typeof staff.department === "string"
+                ? staff.department
+                : staff.department.name}
+            </p>
             <p>Số ngày nghỉ còn lại:{staff.annualLeave} </p>
             <p>Số ngày nghỉ đã làm thêm:{staff.overTime} </p>
           </div>

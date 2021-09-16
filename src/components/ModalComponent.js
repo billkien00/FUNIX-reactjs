@@ -5,13 +5,8 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Col,
-  Form,
-  FormGroup,
   Label,
-  Input,
-  FormText,
   Row,
 } from "reactstrap";
 import { STAFFS } from "../shared/staffs";
@@ -25,6 +20,7 @@ const ModalComponent = (props) => {
   const { buttonLabel, className, onAddStaff } = props;
   const [modal, setModal] = useState(false);
   const handleSubmit = (values) => {
+    console.log(values.department);
     onAddStaff({
       name: values.name,
       dob: values.birthday,
@@ -57,8 +53,7 @@ const ModalComponent = (props) => {
                 Tên
               </Label>
               <Col sm={7}>
-                <Input
-                  type="text"
+                <Control.text
                   model=".name"
                   className="form-control"
                   name="name"
@@ -87,7 +82,7 @@ const ModalComponent = (props) => {
                 Ngày Sinh
               </Label>
               <Col sm={7}>
-                <Input
+                <Control
                   type="date"
                   model=".birthday"
                   className="form-control"
@@ -114,7 +109,7 @@ const ModalComponent = (props) => {
                 Ngày vào công ty
               </Label>
               <Col sm={7}>
-                <Input
+                <Control
                   type="date"
                   model=".startday"
                   className="form-control"
@@ -141,20 +136,19 @@ const ModalComponent = (props) => {
                 Phòng ban
               </Label>
               <Col sm={7}>
-                <Input
-                  type="select"
+                <Control.select
                   model=".department"
                   className="form-control"
                   name="department"
                   id="department"
-                  // defaultValue="IT"
+                  defaultValue="IT"
                 >
                   <option>Sale</option>
                   <option>HR</option>
                   <option>Marketing</option>
                   <option>IT</option>
                   <option>Finance</option>
-                </Input>
+                </Control.select>
               </Col>
             </Row>
             <Row className="form-group">
@@ -162,14 +156,13 @@ const ModalComponent = (props) => {
                 Hệ số lương
               </Label>
               <Col sm={7}>
-                <Input
-                  type="text"
+                <Control.text
                   model=".salaryScale"
                   className="form-control"
                   name="salaryScale"
                   id="salaryScale"
                   placeholder="1.0->3.0"
-                  // defaultValue={1}
+                  defaultValue={1}
                   validators={{
                     isNumber,
                   }}
@@ -189,14 +182,13 @@ const ModalComponent = (props) => {
                 Số ngày nghỉ còn lại
               </Label>
               <Col sm={7}>
-                <Input
-                  type="text"
+                <Control.text
                   model=".annualLeave"
                   className="form-control"
                   name="annualLeave"
                   id="annualLeave"
                   placeholder={1.0}
-                  // defaultValue={0}
+                  defaultValue={0}
                   validators={{
                     isNumber,
                   }}
@@ -216,14 +208,13 @@ const ModalComponent = (props) => {
                 Số ngày đã làm thêm
               </Label>
               <Col sm={7}>
-                <Input
-                  type="text"
+                <Control.text
                   model=".overTime"
                   className="form-control"
                   name="overTime"
                   id="overTime"
                   placeholder="0"
-                  // defaultValue={0}
+                  defaultValue={0}
                   validators={{
                     isNumber,
                   }}
