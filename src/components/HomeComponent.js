@@ -9,7 +9,7 @@ import {
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 
-function RenderCard({ item, isLoading, errMess }) {
+const RenderCard = ({ item, isLoading, errMess }) => {
   if (isLoading) {
     return <Loading />;
   } else if (errMess) {
@@ -28,9 +28,9 @@ function RenderCard({ item, isLoading, errMess }) {
       </Card>
     );
   }
-}
+};
 export default function HomeComponent(props) {
-  console.log(props);
+  // console.log(props);
   return (
     <div className="container">
       <div className="row align-items-start">
@@ -42,10 +42,18 @@ export default function HomeComponent(props) {
           />
         </div>
         <div className="col-12 col-md m-1">
-          <RenderCard item={props.promotion} />
+          <RenderCard
+            item={props.promotion}
+            isLoading={props.dishesLoading}
+            errMess={props.dishesErrMess}
+          />
         </div>
         <div className="col-12 col-md m-1">
-          <RenderCard item={props.leader} />
+          <RenderCard
+            item={props.leader}
+            isLoading={props.dishesLoading}
+            errMess={props.dishesErrMess}
+          />
         </div>
       </div>
     </div>

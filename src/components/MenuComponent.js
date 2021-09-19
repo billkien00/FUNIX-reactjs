@@ -24,6 +24,7 @@ function RenderMenuItem({ dish }) {
 }
 
 const MenuComponent = (props) => {
+  console.log(props);
   const menu = props.dishes.dishes.map((dish) => {
     return (
       <div key={dish.id} className="col-12 col-md-5 m-1">
