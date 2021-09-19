@@ -12,7 +12,6 @@ export default function StaffsComponent(props) {
   };
 
   const staff = props.staffs.map((staff) => {
-    
     return (
       <div className="col-sm-6 col-md-4 col-lg-2">
         <Link to={`/staffs/${staff.id}`}>
