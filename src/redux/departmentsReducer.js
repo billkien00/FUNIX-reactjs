@@ -1,36 +1,30 @@
 import * as ActionTypes from "./ActionTypes";
 
-export const staffsReducer = (
+export const departmentsReducer = (
   state = {
-    staffs: [],
+    dep: [],
     isLoading: true,
     errMessage: null,
   },
   action
 ) => {
   switch (action.type) {
-    case ActionTypes.ADD_STAFF:
+    case ActionTypes.ADD_DEPARTMENT:
       return {
         ...state,
-        isLoading: false,
-        errMessage: null,
-        staffs: action.payload,
-      };
-      break;
-    case ActionTypes.STAFF_FAILED:
-      return {
-        ...state,
-        isLoading: false,
-        errMessage: action.payoad,
-        staffs: [],
+        ...{ isLoading: false, errMessage: null, dep: action.payload },
       };
 
-      break;
-    case ActionTypes.STAFF_LOADING:
-      return { ...state, isLoading: true, errMessage: null, staffs: [] };
-      break;
+    case ActionTypes.DEPARTMENT_FAILED:
+      return {
+        ...state,
+        ...{ isLoading: false, errMessage: action.payoad, dep: [] },
+      };
+
+    case ActionTypes.DEPARTMENT_LOADING:
+      return { ...state, ...{ isLoading: true, errMessage: null, dep: [] } };
 
     default:
-      break;
+      return state;
   }
 };

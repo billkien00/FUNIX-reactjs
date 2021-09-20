@@ -7,33 +7,32 @@ import MoneyComponent from "./MoneyComponent";
 import NavbarComponent from "./NavbarComponent";
 import StaffsComponent from "./StaffsComponent";
 import StaffsDetail from "./StaffsDetail";
-import * as AllAction from "../redux/ActionCreator";
+import { fetchStaffs, fetchDepartments } from "../redux/ActionCreator";
 
 function MainComponent() {
-  const staffsRedux = useSelector((state) => state);
-  console.log(staffsRedux);
+  const staffs = useSelector((state) => state.staff);
   const departments = useSelector((state) => state.department);
-  const [staffs, setStaffs] = useState(staffsRedux);
 
   const dispatch = useDispatch();
 
   const handleAddStaff = (staff) => {
-    staff.id = staffs.length;
-    setStaffs(staffs.concat([staff]));
+    // staff.id = staffs.length;
+    // setStaffs(staffs.concat([staff]));
   };
 
   useEffect(() => {
-    // dispatch(AllAction.addStaffs(staffs));
-  });
+    dispatch(fetchStaffs());
+    dispatch(fetchDepartments());
+  }, []);
 
   const handleSearch = (search) => {
-    setStaffs(
-      search
-        ? staffsRedux.filter((s) =>
-            s.name.toLowerCase().includes(search.toLowerCase())
-          )
-        : staffsRedux
-    );
+    // setStaffs(
+    //   search
+    //     ? staffsRedux.filter((s) =>
+    //         s.name.toLowerCase().includes(search.toLowerCase())
+    //       )
+    //     : staffsRedux
+    // );
   };
 
   const StaffDetail = ({ match }) => {
@@ -48,11 +47,11 @@ function MainComponent() {
       <NavbarComponent />
       <Switch>
         <Route exact path="/staffs">
-          {/* <StaffsComponent
+          <StaffsComponent
             staffs={staffs}
             onAddStaff={handleAddStaff}
             onSearchStaff={handleSearch}
-          /> */}
+          />
         </Route>
         <Route path="/department">
           <DepartmentCoponent departments={departments} />

@@ -12,25 +12,33 @@ export const staffsReducer = (
     case ActionTypes.ADD_STAFF:
       return {
         ...state,
-        isLoading: false,
-        errMessage: null,
-        staffs: action.payload,
+        ...{
+          isLoading: false,
+          errMessage: null,
+          staffs: action.payload,
+        },
       };
-      break;
+
     case ActionTypes.STAFF_FAILED:
       return {
         ...state,
-        isLoading: false,
-        errMessage: action.payoad,
-        staffs: [],
+        ...{
+          isLoading: false,
+          errMessage: action.payoad,
+          staffs: [],
+        },
       };
 
-      break;
     case ActionTypes.STAFF_LOADING:
-      return { ...state, isLoading: true, errMessage: null, staffs: [] };
-      break;
-
+      return {
+        ...state,
+        ...{
+          isLoading: true,
+          errMessage: null,
+          staffs: [],
+        },
+      };
     default:
-      break;
+      return state;
   }
 };

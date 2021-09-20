@@ -5,13 +5,14 @@
 // export const Reducer = (state = initialState, action) => {
 //   return state;
 // };
+// import { STAFFS } from "../shared/staffs";
+// import { DEPARTMENTS } from "../shared/staffs";
 
 import { combineReducers } from "redux";
-import { DEPARTMENTS } from "../shared/staffs";
-import { STAFFS } from "../shared/staffs";
 import { staffsReducer } from "./staffsReducer";
+import { departmentsReducer } from "./departmentsReducer";
 
 export const rootReducer = combineReducers({
-  staff: STAFFS,
-  department: DEPARTMENTS,
+  staff: staffsReducer,
+  department: departmentsReducer,
 });
