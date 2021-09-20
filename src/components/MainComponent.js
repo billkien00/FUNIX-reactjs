@@ -23,6 +23,7 @@ const mapStateToProps = (state) => {
     leaders: state.leaders,
   };
 };
+
 const mapDispatchToProps = (dispatch) => ({
   addComment: (dishId, rating, author, comment) =>
     dispatch(addComment(dishId, rating, author, comment)),
