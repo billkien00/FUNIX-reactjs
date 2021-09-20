@@ -15,7 +15,7 @@ export default function DepartmentCoponent(props) {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h4>{props.staffs.errMess}</h4>
+            <h4>{props.departments.errMess}</h4>
           </div>
         </div>
       </div>

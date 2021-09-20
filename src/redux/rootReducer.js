@@ -11,8 +11,10 @@
 import { combineReducers } from "redux";
 import { staffsReducer } from "./staffsReducer";
 import { departmentsReducer } from "./departmentsReducer";
+import { moneyReducer } from "./moneyReducer";
 
 export const rootReducer = combineReducers({
   staff: staffsReducer,
   department: departmentsReducer,
+  money: moneyReducer,
 });

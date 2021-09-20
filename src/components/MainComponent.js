@@ -7,11 +7,16 @@ import MoneyComponent from "./MoneyComponent";
 import NavbarComponent from "./NavbarComponent";
 import StaffsComponent from "./StaffsComponent";
 import StaffsDetail from "./StaffsDetail";
-import { fetchStaffs, fetchDepartments } from "../redux/ActionCreator";
+import {
+  fetchStaffs,
+  fetchDepartments,
+  fetchMoney,
+} from "../redux/ActionCreator";
 
 function MainComponent() {
   const staffs = useSelector((state) => state.staff);
   const departments = useSelector((state) => state.department);
+  const moneys = useSelector((state) => state.money);
 
   const dispatch = useDispatch();
 
@@ -23,6 +28,7 @@ function MainComponent() {
   useEffect(() => {
     dispatch(fetchStaffs());
     dispatch(fetchDepartments());
+    dispatch(fetchMoney());
   }, []);
 
   const handleSearch = (search) => {
@@ -57,7 +63,7 @@ function MainComponent() {
           <DepartmentCoponent departments={departments} />
         </Route>
         <Route path="/money">
-          <MoneyComponent staffs={staffs} />
+          <MoneyComponent moneys={moneys} />
         </Route>
         <Route exact path="/staffs/:staffId">
           {StaffDetail}

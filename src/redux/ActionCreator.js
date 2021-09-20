@@ -44,3 +44,25 @@ export const fetchDepartments = () => (dispatch) => {
     .then((dep) => dispatch(addDepartment(dep)))
     .catch((err) => dispatch(departmentFailed(err.message)));
 };
+
+export const addMoney = (money) => ({
+  type: ActionTypes.ADD_MONEY,
+  payload: money,
+});
+
+export const moneyLoading = () => ({
+  type: ActionTypes.MONEY_LOADING,
+});
+
+export const moneyFailed = (errMessage) => ({
+  type: ActionTypes.MONEY_FAILED,
+  payload: errMessage,
+});
+
+export const fetchMoney = () => (dispatch) => {
+  dispatch(moneyLoading());
+  fetch(baseUrl + "staffsSalary")
+    .then((response) => response.json())
+    .then((money) => dispatch(addDepartment(money)))
+    .catch((err) => dispatch(departmentFailed(err.message)));
+};

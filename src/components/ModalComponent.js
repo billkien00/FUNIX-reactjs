@@ -9,7 +9,7 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { STAFFS } from "../shared/staffs";
+
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
