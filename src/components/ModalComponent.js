@@ -19,6 +19,7 @@ const isNumber = (val) => !isNaN(Number(val));
 const ModalComponent = (props) => {
   const { buttonLabel, className, onAddStaff } = props;
   const [modal, setModal] = useState(false);
+  
   const handleSubmit = (values) => {
     console.log(values.department);
     onAddStaff({
