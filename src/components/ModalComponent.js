@@ -10,7 +10,6 @@ import {
   Row,
 } from "reactstrap";
 
-
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => !val || val.length >= len;
@@ -19,18 +18,18 @@ const isNumber = (val) => !isNaN(Number(val));
 const ModalComponent = (props) => {
   const { buttonLabel, className, onAddStaff } = props;
   const [modal, setModal] = useState(false);
-  
+
   const handleSubmit = (values) => {
     console.log(values.department);
     onAddStaff({
-      name: values.name,
-      dob: values.birthday,
-      salaryScale: values.salaryScale,
-      startDate: values.startday,
-      department: values.department,
-      annualLeave: values.annualLeave,
-      overTime: values.overTime,
-      image: "/assets/images/alberto.png",
+      // name: values.name,
+      // dob: values.birthday,
+      // salaryScale: values.salaryScale,
+      // startDate: values.startday,
+      // department: values.department,
+      // annualLeave: values.annualLeave,
+      // overTime: values.overTime,
+      // image: "/assets/images/alberto.png",
     });
     setModal(false);
   };
