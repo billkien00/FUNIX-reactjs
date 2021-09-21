@@ -1,16 +1,16 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 import ModalComponent from "./ModalComponent";
 
-
 export default function StaffsComponent(props) {
+  const [search, setsearch] = useState("");
+
   const searchRef = useRef(null);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    const searchTxt = searchRef.current.value;
-    props.onSearchStaff(searchTxt);
+    setsearch(searchRef.current.value);
   };
 
   const onAddStaff = (staff) => {
@@ -36,24 +36,26 @@ export default function StaffsComponent(props) {
       </div>
     );
   } else {
-    const staff = props.staffs.staffs.map((staff) => {
-      return (
-        <div className="col-sm-6 col-md-4 col-lg-2" key={`staff-${staff.id}`}>
-          <Link to={`/staffs/${staff.id}`}>
-            <div className="card rounded m-1">
-              <img
-                className="card-img-top"
-                src={staff.image}
-                alt={staff.name}
-              />
-              <div className="card-body">
-                <p className="card-text text-center"> {staff.name}</p>
+    const staff = props.staffs.staffs
+      .filter((s) => s.name.toLowerCase().includes(search.toLowerCase()))
+      .map((staff) => {
+        return (
+          <div className="col-sm-6 col-md-4 col-lg-2" key={`staff-${staff.id}`}>
+            <Link to={`/staffs/${staff.id}`}>
+              <div className="card rounded m-1">
+                <img
+                  className="card-img-top"
+                  src={staff.image}
+                  alt={staff.name}
+                />
+                <div className="card-body">
+                  <p className="card-text text-center"> {staff.name}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        </div>
-      );
-    });
+            </Link>
+          </div>
+        );
+      });
     return (
       <div className="container-fluid">
         <div className="border-bottom row">

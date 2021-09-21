@@ -32,12 +32,7 @@ export default function StaffsDetail({ staff }) {
               Ngày vào công ty:{" "}
               <Moment format="DD/MM/YYYY">{staff.startDate}</Moment>
             </p>
-            <p>
-              Phòng ban:{" "}
-              {typeof staff.department === "string"
-                ? staff.department
-                : staff.department.name}
-            </p>
+            <p>Phòng ban: {staff.departmentId}</p>
             <p>Số ngày nghỉ còn lại:{staff.annualLeave} </p>
             <p>Số ngày nghỉ đã làm thêm:{staff.overTime} </p>
           </div>

@@ -45,6 +45,28 @@ export const fetchDepartments = () => (dispatch) => {
     .catch((err) => dispatch(departmentFailed(err.message)));
 };
 
+export const addDepartmentStaff = (deps) => ({
+  type: ActionTypes.ADD_DEPARTMENT_STAFF,
+  payload: deps,
+});
+
+export const departmentStaffLoading = () => ({
+  type: ActionTypes.DEPARTMENT_STAFF_LOADING,
+});
+
+export const departmentStaffFailed = (errMessage) => ({
+  type: ActionTypes.DEPARTMENT_STAFF_FAILED,
+  payload: errMessage,
+});
+
+export const fetchDepartmentsStaff = (id) => (dispatch) => {
+  dispatch(departmentStaffLoading());
+  fetch(`${baseUrl}departments/${id}`)
+    .then((response) => response.json())
+    .then((dep) => dispatch(addDepartmentStaff(dep)))
+    .catch((err) => dispatch(departmentStaffFailed(err.message)));
+};
+
 export const addMoney = (money) => ({
   type: ActionTypes.ADD_MONEY,
   payload: money,
@@ -63,6 +85,6 @@ export const fetchMoney = () => (dispatch) => {
   dispatch(moneyLoading());
   fetch(baseUrl + "staffsSalary")
     .then((response) => response.json())
-    .then((money) => dispatch(addDepartment(money)))
-    .catch((err) => dispatch(departmentFailed(err.message)));
+    .then((money) => dispatch(addMoney(money)))
+    .catch((err) => dispatch(moneyFailed(err.message)));
 };

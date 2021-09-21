@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import DepartmentCoponent from "./DepartmentCoponent";
@@ -12,9 +12,11 @@ import {
   fetchDepartments,
   fetchMoney,
 } from "../redux/ActionCreator";
+import DepartmentStaffsComponent from "./DepartmentStaffsComponent";
 
 function MainComponent() {
   const staffs = useSelector((state) => state.staff);
+
   const departments = useSelector((state) => state.department);
   const moneys = useSelector((state) => state.money);
 
@@ -31,21 +33,17 @@ function MainComponent() {
     dispatch(fetchMoney());
   }, []);
 
-  const handleSearch = (search) => {
-    // setStaffs(
-    //   search
-    //     ? staffsRedux.filter((s) =>
-    //         s.name.toLowerCase().includes(search.toLowerCase())
-    //       )
-    //     : staffsRedux
-    // );
-  };
-
   const StaffDetail = ({ match }) => {
-    const staff = staffs.filter(
+    const staff = staffs.staffs.filter(
       (x) => x.id === parseInt(match.params.staffId, 10)
     )[0];
     return <StaffsDetail staff={staff} />;
+  };
+
+  const DepartmentStaffs = ({ match }) => {
+    const id = match.params.departmentId;
+
+    return <DepartmentStaffsComponent id={id} />;
   };
 
   return (
@@ -53,13 +51,9 @@ function MainComponent() {
       <NavbarComponent />
       <Switch>
         <Route exact path="/staffs">
-          <StaffsComponent
-            staffs={staffs}
-            onAddStaff={handleAddStaff}
-            onSearchStaff={handleSearch}
-          />
+          <StaffsComponent staffs={staffs} onAddStaff={handleAddStaff} />
         </Route>
-        <Route path="/department">
+        <Route exact path="/department">
           <DepartmentCoponent departments={departments} />
         </Route>
         <Route path="/money">
@@ -67,6 +61,9 @@ function MainComponent() {
         </Route>
         <Route exact path="/staffs/:staffId">
           {StaffDetail}
+        </Route>
+        <Route exact path="/department/:departmentId">
+          {DepartmentStaffs}
         </Route>
 
         <Redirect to="/staffs" />
