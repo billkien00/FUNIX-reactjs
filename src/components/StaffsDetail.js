@@ -3,7 +3,6 @@ import Moment from "react-moment";
 import { Link } from "react-router-dom";
 
 export default function StaffsDetail({ staff }) {
-  console.log(staff);
   return (
     <div>
       <nav aria-label="breadcrumb">

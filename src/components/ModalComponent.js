@@ -22,14 +22,14 @@ const ModalComponent = (props) => {
   const handleSubmit = (values) => {
     console.log(values.department);
     onAddStaff({
-      // name: values.name,
-      // dob: values.birthday,
-      // salaryScale: values.salaryScale,
-      // startDate: values.startday,
-      // department: values.department,
-      // annualLeave: values.annualLeave,
-      // overTime: values.overTime,
-      // image: "/assets/images/alberto.png",
+      name: values.name,
+      dob: values.birthday,
+      salaryScale: values.salaryScale,
+      startDate: values.startday,
+      department: values.department,
+      annualLeave: values.annualLeave,
+      overTime: values.overTime,
+      image: "/assets/images/alberto.png",
     });
     setModal(false);
   };

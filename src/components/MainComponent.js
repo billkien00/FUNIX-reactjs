@@ -11,6 +11,7 @@ import {
   fetchStaffs,
   fetchDepartments,
   fetchMoney,
+  upStaff,
 } from "../redux/ActionCreator";
 import DepartmentStaffsComponent from "./DepartmentStaffsComponent";
 
@@ -23,6 +24,8 @@ function MainComponent() {
   const dispatch = useDispatch();
 
   const handleAddStaff = (staff) => {
+    console.log(staff);
+    dispatch(upStaff(staff))
     // staff.id = staffs.length;
     // setStaffs(staffs.concat([staff]));
   };

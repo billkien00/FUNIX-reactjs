@@ -89,37 +89,62 @@ export const fetchMoney = () => (dispatch) => {
     .catch((err) => dispatch(moneyFailed(err.message)));
 };
 
-export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+export const postStaff = (staff) => ({
+  type: ActionTypes.POST_STAFF,
+  payload: staff,
+});
 
-  const newComment = {
-      dishId: dishId,
-      rating: rating,
-      author: author,
-      comment: comment
-  };
-  newComment.date = new Date().toISOString();
-  
-  return fetch(baseUrl + 'comments', {
+export const upStaff =
+  (
+    name,
+    dob,
+    salaryScale,
+    startDate,
+    department,
+    annualLeave,
+    overTime,
+    image
+  ) =>
+  (dispatch) => {
+    const newStaff = {
+      name,
+      dob,
+      salaryScale,
+      startDate,
+      department,
+      annualLeave,
+      overTime,
+      image,
+    };
+
+    return fetch(baseUrl + "staffs", {
       method: "POST",
-      body: JSON.stringify(newComment),
+      body: JSON.stringify(newStaff),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      credentials: "same-origin"
-  })
-  .then(response => {
-      if (response.ok) {
-        return response;
-      } else {
-        var error = new Error('Error ' + response.status + ': ' + response.statusText);
-        error.response = response;
-        throw error;
-      }
-    },
-    error => {
-          throw error;
+      credentials: "same-origin",
     })
-  .then(response => response.json())
-  .then(response => dispatch(addComment(response)))
-  .catch(error =>  { console.log('post comments', error.message); alert('Your comment could not be posted\nError: '+error.message); });
-};
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          throw error;
+        }
+      )
+      .then((response) => response.json())
+      .then((response) => dispatch(postStaff(response)))
+      .catch((error) => {
+        console.log("post staff", error.message);
+        alert("Your staff could not be posted\nError: " + error.message);
+      });
+  };

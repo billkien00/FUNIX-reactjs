@@ -19,6 +19,16 @@ export const staffsReducer = (
         },
       };
 
+    case ActionTypes.POST_STAFF:
+      return {
+        ...state,
+        ...{
+          isLoading: false,
+          errMessage: null,
+          staffs: action.payload,
+        },
+      };
+
     case ActionTypes.STAFF_FAILED:
       return {
         ...state,
@@ -38,6 +48,7 @@ export const staffsReducer = (
           staffs: [],
         },
       };
+
     default:
       return state;
   }
