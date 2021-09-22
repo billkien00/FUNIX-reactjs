@@ -10,19 +10,23 @@ import {
   Row,
 } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { upStaff } from "../redux/ActionCreator";
+import { fixStaff } from "../redux/ActionCreator";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
 const minLength = (len) => (val) => !val || val.length >= len;
 const isNumber = (val) => !isNaN(Number(val));
 
-const ModalComponent = (props) => {
-  const { buttonLabel, className } = props;
+const FixModal = (props) => {
+  const { buttonLabel, className, id } = props;
+
   const [modal, setModal] = useState(false);
+
   const dispatch = useDispatch();
+
   const handleSubmit = (values) => {
     const staff = {
+      id: id,
       name: values.name,
       doB: values.birthday,
       salaryScale: values.salaryScale,
@@ -32,7 +36,9 @@ const ModalComponent = (props) => {
       overTime: values.overTime,
       image: "/asset/images/alberto.png",
     };
-    dispatch(upStaff(staff));
+
+    dispatch(fixStaff(staff));
+
     setModal(false);
   };
 
@@ -43,7 +49,7 @@ const ModalComponent = (props) => {
         {buttonLabel}
       </Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Thêm Nhân Viên</ModalHeader>
+        <ModalHeader toggle={toggle}>Sửa Thông Tin Nhân Viên</ModalHeader>
         <ModalBody>
           <LocalForm
             onSubmit={(values) => {
@@ -234,7 +240,7 @@ const ModalComponent = (props) => {
             <Row className="form-group">
               <Col md={{ size: 10, offset: 9 }}>
                 <Button type="submit" color="primary">
-                  thêm
+                  Sửa
                 </Button>
               </Col>
             </Row>
@@ -245,4 +251,4 @@ const ModalComponent = (props) => {
   );
 };
 
-export default ModalComponent;
+export default FixModal;

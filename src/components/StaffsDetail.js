@@ -1,8 +1,19 @@
 import React from "react";
 import Moment from "react-moment";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { delStaff } from "../redux/ActionCreator";
+import FixModal from "./FixModel";
 
 export default function StaffsDetail({ staff }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleDelete = (id) => {
+    dispatch(delStaff(id));
+    history.push(`/staffs`);
+  };
+
   return (
     <div>
       <nav aria-label="breadcrumb">
@@ -16,6 +27,17 @@ export default function StaffsDetail({ staff }) {
         </ol>
       </nav>
       <div className="container-fluid">
+        <div style={{ float: "right" }}>
+          <button
+            className="ml-3 btn btn-danger"
+            onClick={() => handleDelete(staff.id)}
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </div>
+        <div className="form-inline" style={{ float: "right" }}>
+          <FixModal buttonLabel={"sửa"} id={staff.id} />
+        </div>
         <div className="row m-3">
           <img
             className="col-lg-3 col-md-4 col-sm-12"

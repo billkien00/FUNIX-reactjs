@@ -94,57 +94,95 @@ export const postStaff = (staff) => ({
   payload: staff,
 });
 
-export const upStaff =
-  (
-    name,
-    dob,
-    salaryScale,
-    startDate,
-    department,
-    annualLeave,
-    overTime,
-    image
-  ) =>
-  (dispatch) => {
-    const newStaff = {
-      name,
-      dob,
-      salaryScale,
-      startDate,
-      department,
-      annualLeave,
-      overTime,
-      image,
-    };
-
-    return fetch(baseUrl + "staffs", {
-      method: "POST",
-      body: JSON.stringify(newStaff),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "same-origin",
-    })
-      .then(
-        (response) => {
-          if (response.ok) {
-            return response;
-          } else {
-            var error = new Error(
-              "Error " + response.status + ": " + response.statusText
-            );
-            error.response = response;
-            throw error;
-          }
-        },
-        (error) => {
+export const upStaff = (staff) => (dispatch) => {
+  return fetch(baseUrl + "staffs", {
+    method: "POST",
+    body: JSON.stringify(staff),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
           throw error;
         }
-      )
-      .then((response) => response.json())
-      .then((response) => dispatch(postStaff(response)))
-      .catch((error) => {
-        console.log("post staff", error.message);
-        alert("Your staff could not be posted\nError: " + error.message);
-      });
-  };
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(postStaff(response)))
+    .catch((error) => {
+      console.log("post staff", error.message);
+      alert("Your staff could not be posted\nError: " + error.message);
+    });
+};
+
+export const fixStaff = (staff) => (dispatch) => {
+  return fetch(`${baseUrl}staffs`, {
+    method: "PATCH",
+    body: JSON.stringify(staff),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffs(response)))
+    .catch((error) => {
+      console.log("change staff", error.message);
+      alert("Your staff could not be change\nError: " + error.message);
+    });
+};
+
+export const delStaff = (id) => (dispatch) => {
+  return fetch(`${baseUrl}staffs/${id}`, {
+    method: "DELETE",
+  })
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        throw error;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffs(response)))
+    .catch((error) => {
+      console.log("delete staff", error.message);
+      alert("Your staff could not be delete\nError: " + error.message);
+    });
+};

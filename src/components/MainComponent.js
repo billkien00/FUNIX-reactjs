@@ -11,7 +11,6 @@ import {
   fetchStaffs,
   fetchDepartments,
   fetchMoney,
-  upStaff,
 } from "../redux/ActionCreator";
 import DepartmentStaffsComponent from "./DepartmentStaffsComponent";
 
@@ -22,13 +21,6 @@ function MainComponent() {
   const moneys = useSelector((state) => state.money);
 
   const dispatch = useDispatch();
-
-  const handleAddStaff = (staff) => {
-    console.log(staff);
-    dispatch(upStaff(staff))
-    // staff.id = staffs.length;
-    // setStaffs(staffs.concat([staff]));
-  };
 
   useEffect(() => {
     dispatch(fetchStaffs());
@@ -54,7 +46,7 @@ function MainComponent() {
       <NavbarComponent />
       <Switch>
         <Route exact path="/staffs">
-          <StaffsComponent staffs={staffs} onAddStaff={handleAddStaff} />
+          <StaffsComponent staffs={staffs} />
         </Route>
         <Route exact path="/department">
           <DepartmentCoponent departments={departments} />

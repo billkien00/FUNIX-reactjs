@@ -29,6 +29,16 @@ export const staffsReducer = (
         },
       };
 
+      case ActionTypes.DELETE_STAFF:
+      return {
+        ...state,
+        ...{
+          isLoading: false,
+          errMessage: null,
+          staffs: action.payload,
+        },
+      };
+
     case ActionTypes.STAFF_FAILED:
       return {
         ...state,

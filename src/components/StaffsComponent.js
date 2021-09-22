@@ -13,10 +13,6 @@ export default function StaffsComponent(props) {
     setsearch(searchRef.current.value);
   };
 
-  const onAddStaff = (staff) => {
-    props.onAddStaff(staff);
-  };
-
   if (props.staffs.isLoading) {
     return (
       <div className="container">
@@ -61,7 +57,7 @@ export default function StaffsComponent(props) {
         <div className="border-bottom row">
           <h1 className="col-lg-3">Nhân Viên</h1>
           <div className="form-inline col-lg-6">
-            <ModalComponent buttonLabel={"+"} onAddStaff={onAddStaff} />
+            <ModalComponent buttonLabel={"+"} />
           </div>
 
           <form onSubmit={handleSearch} class="form-inline col-lg-3">
