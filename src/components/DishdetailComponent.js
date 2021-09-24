@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import CommentModal from "./CommentModal";
 
 export default function DishdetailComponent(props) {
   const renderDish = () => {
@@ -73,6 +74,7 @@ export default function DishdetailComponent(props) {
                   </div>
                 );
               })}
+              <CommentModal buttonLabel={"Add Comment"} />
             </div>
           </div>
         </div>
