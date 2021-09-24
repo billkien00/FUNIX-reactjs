@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 import CommentModal from "./CommentModal";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 export default function DishdetailComponent(props) {
   const renderDish = () => {
@@ -50,30 +51,41 @@ export default function DishdetailComponent(props) {
 
           <div className="row">
             <div className="col-12 col-md-5 m-1">
-              <Card>
-                <CardImg
-                  top
-                  src={baseUrl + props.dish.image}
-                  alt={props.dish.name}
-                />
-                <CardBody>
-                  <CardTitle>{props.dish.name}</CardTitle>
-                  <CardText>{props.dish.description}</CardText>
-                </CardBody>
-              </Card>
+              <FadeTransform
+                in
+                transformProps={{
+                  exitTransform: "scale(0.5) translateY(-50%)",
+                }}
+              >
+                <Card>
+                  <CardImg
+                    top
+                    src={baseUrl + props.dish.image}
+                    alt={props.dish.name}
+                  />
+                  <CardBody>
+                    <CardTitle>{props.dish.name}</CardTitle>
+                    <CardText>{props.dish.description}</CardText>
+                  </CardBody>
+                </Card>
+              </FadeTransform>
             </div>
             <div className="col-12 col-md-5 m-1">
               <h1>Comments</h1>
-              {props.comments.map((comment) => {
-                return (
-                  <div key={comment.id}>
-                    <p>{comment.comment}</p>
-                    <p>
-                      --{comment.author},{comment.date}
-                    </p>
-                  </div>
-                );
-              })}
+              <Stagger in>
+                {props.comments.map((comment) => {
+                  return (
+                    <Fade in>
+                      <div key={comment.id}>
+                        <p>{comment.comment}</p>
+                        <p>
+                          --{comment.author},{comment.date}
+                        </p>
+                      </div>
+                    </Fade>
+                  );
+                })}
+              </Stagger>
               <CommentModal buttonLabel={"Add Comment"} />
             </div>
           </div>
