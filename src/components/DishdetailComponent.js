@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Loading } from "./LoadingComponent";
-
+import CommentModal from "./CommentModal";
 
 export default function DishdetailComponent(props) {
   const renderDish = () => {
@@ -18,11 +18,11 @@ export default function DishdetailComponent(props) {
       return (
         <div className="container">
           <dis className="row">
-            <Loading/>
+            <Loading />
           </dis>
         </div>
       );
-    } else if(props.errMess){
+    } else if (props.errMess) {
       return (
         <div className="container">
           <dis className="row">
@@ -73,6 +73,7 @@ export default function DishdetailComponent(props) {
                   </div>
                 );
               })}
+              <CommentModal buttonLabel={"Add Comment"} />
             </div>
           </div>
         </div>
